@@ -1,16 +1,12 @@
-DEBUG = False
-SESSION_COOKIE_HTTPONLY = False
-PERMANENT_SESSION_LIFETIME = True
-
 IOS = {
     "EmailAccountDescription": "Email account description",
     "PayloadIdentifier": "com.example.email",
     "PayloadOrganization": "Awesome Email Service",
     "PayloadDisplayName": "Email service config",
-    "key": "keys/iOSsigningkey.key",
-    "cert": "keys/iOSsigningkey.crt",
+    "key": "keys/iOSsigningkey.pem",
+    "cert": "keys/iOSsigningkey.pem",
     "chain": "keys/sub.class1.client.sha2.ca.pem",
-    "extrapayloads": [
+    "extrapayloads": [  # this is optional, remove the whole thing if you don't want it
         {
             'PayloadEnabled': True,
             'PayloadUUID': 'c21e7f55-eddc-407f-a2e7-9bd73fc2ee46',  # Remember to generate your own!
