@@ -20,7 +20,11 @@ def sign(profile, key, cert=None, chain=None):
         cmd.append("-certfile")
         cmd.append(chain)
     openssl = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-    return openssl.communicate(plistlib.dumps(profile))[0]
+    try:
+        unsigned = plistlib.dumps(profile)
+    except AttributeError:
+        unsigned = plistlib.writePlistToString(profile)
+    return openssl.communicate(unsigned)[0]
 
 
 def makeConfig(email, config):
