@@ -37,7 +37,7 @@ def makeConfig(email, config):
     domain = ".".join(domain)
     EmailPayloadIdentifier = "%s.email.%s" % (domain, name)
     PayloadIdentifier = "%s.email" % domain
-    payloads.append({
+    payloads.append({"PayloadContent": {
         "PayloadType": "com.apple.mail.managed",
         "PayloadVersion": 1,
         "PayloadIdentifier": EmailPayloadIdentifier,
@@ -56,6 +56,7 @@ def makeConfig(email, config):
         "OutgoingMailServerUseSSL": True,
         "EmailAccountType": "EmailAccountType",
         "OutgoingPasswordSameAsIncomingPassword": True
+        }
     })
     profile = {
         'PayloadUUID': uuid.uuid4().hex,
