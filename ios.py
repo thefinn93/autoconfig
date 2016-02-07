@@ -2,7 +2,6 @@
 import plistlib
 from flask import Response
 import subprocess
-import uuid
 
 
 def sign(profile, key, cert=None, chain=None):
@@ -72,7 +71,16 @@ def makeConfig(email, config):
         }
     if "PayloadDisplayName" in config['IOS']:
         profile['PayloadDisplayName'] = config['IOS']['PayloadDisplayName']
-    signed = sign(profile, config['IOS']['key'], config['IOS']['cert'], config['IOS']['chain'])
+    key = {"key": None, "cert": None, "chain": None}
+    for item in key.keys():
+        if type(config['IOS'][key]) == dict:
+            if domain in config['IOS'][item]:
+                key[item] = config['IOS'][item][domain]
+            else:
+                key[item] = config['IOS'][item]['default']
+        else:
+            key[item] = config['IOS'][item]
+    signed = sign(profile, key['key'], key['cert'], key['chain'])
     response = Response(signed)
     response.headers['Content-Type'] = "application/x-apple-aspen-config"
     response.headers['Content-Disposition'] = "attachment; filename=\"uwave.mobileconfig\""
