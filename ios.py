@@ -73,7 +73,7 @@ def makeConfig(email, config):
         profile['PayloadDisplayName'] = config['IOS']['PayloadDisplayName']
     key = {"key": None, "cert": None, "chain": None}
     for item in key.keys():
-        if type(config['IOS'][key]) == dict:
+        if isinstance(config['IOS'][key], dict):
             if domain in config['IOS'][item]:
                 key[item] = config['IOS'][item][domain]
             else:
