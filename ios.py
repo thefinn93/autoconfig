@@ -77,9 +77,9 @@ def makeConfig(email, config):
             if domain in config['IOS'][item]:
                 key[item] = config['IOS'][item][domain]
             else:
-                key[item] = config['IOS'][item]['default']
+                key[item] = config['IOS'][item]['default'].format(domain=domain)
         else:
-            key[item] = config['IOS'][item]
+            key[item] = config['IOS'][item].format(domain=domain)
     signed = sign(profile, key['key'], key['cert'], key['chain'])
     response = Response(signed)
     response.headers['Content-Type'] = "application/x-apple-aspen-config"
